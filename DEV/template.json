@@ -1,0 +1,161 @@
+{
+  "general": {
+    "name": "",
+    "credentialName": "googlekey"
+  },
+  "placement": {
+    "availabilityZone": "us-west2-c",
+    "region": "us-west2"
+  },
+  "parameters": {},
+  "inputs": {},
+  "customDomain": {
+    "clusterNameAsSubdomain": false,
+    "hostgroupNameAsHostname": false
+  },
+  "tags": {
+    "userDefinedTags": {}
+  },
+  "instanceGroups": [
+    {
+      "nodeCount": 1,
+      "group": "master",
+      "type": "GATEWAY",
+      "parameters": {},
+      "template": {
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50,
+        "parameters": {
+          "platformType": "GCP",
+          "type": "DEFAULT"
+        },
+        "volumeType": "pd-standard",
+        "instanceType": "n1-standard-8"
+      },
+      "securityGroup": {
+        "securityGroupIds": [],
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "9443",
+            "protocol": "tcp"
+          },
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "443",
+            "protocol": "tcp"
+          },
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "22",
+            "protocol": "tcp"
+          }
+        ]
+      },
+      "recipeNames": [],
+      "recoveryMode": "MANUAL"
+    },
+    {
+      "nodeCount": 1,
+      "group": "worker",
+      "type": "CORE",
+      "parameters": {},
+      "template": {
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50,
+        "parameters": {
+          "platformType": "GCP",
+          "type": "DEFAULT"
+        },
+        "volumeType": "pd-standard",
+        "instanceType": "n1-standard-4"
+      },
+      "securityGroup": {
+        "securityGroupIds": [],
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "22",
+            "protocol": "tcp"
+          }
+        ]
+      },
+      "recipeNames": [],
+      "recoveryMode": "MANUAL"
+    },
+    {
+      "nodeCount": 1,
+      "group": "compute",
+      "type": "CORE",
+      "parameters": {},
+      "template": {
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50,
+        "parameters": {
+          "platformType": "GCP",
+          "type": "DEFAULT"
+        },
+        "volumeType": "pd-standard",
+        "instanceType": "n1-standard-4"
+      },
+      "securityGroup": {
+        "securityGroupIds": [],
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "22",
+            "protocol": "tcp"
+          }
+        ]
+      },
+      "recipeNames": [],
+      "recoveryMode": "MANUAL"
+    }
+  ],
+  "stackAuthentication": {
+    "publicKey": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDC53ZYSHdxK2+KCgOU9aQdeVM8WXHrokovrS83ncDSkwoIkLTxVkrH3iXu6w11P+v5VasGkuFJbA6AC3xt/yh7RYIY6Ci1gqVfip2vBBQaZYTxZnUWCAlwpMddjweOauuih6rUkUOPKe1WDcejhWJ3ZtDga4nzLOk2HOyDo09W+I0/EwFOoLKLXPFMncHKPF6UF0S1FnmD/+JoUDz8dejRL1vvV44XURSEGU2CYD5x5YkcauoR0IFbrCD3lqbxgyfB2lGTcyTE8gejdLjSDBbvtRUxwt7OLNS1LbWOE7hpoJQVGzr6MJwLUlGBdmRX40lQKqVXazzSJggc8+7X4b4cGsij/twMP90Wf3g+R/yyNRW6kVh+tYr7ElOSynl04t0HbovEzpNN2AI5d7Ziu9pdvgxPNHqLyOQ7WTT4vTDFNIPd+yvbU06bIuyFGi3XP2O5Z4NJBZNHk3FKmlAIoloMHFR09WlvTATMkw+3Y5hD5WOvhpQ0iJiSFEoUMSQjRIvS/vDs+sWnVgG2cl1r8/B0R85GDFK7BU7L8RkxKEe4ghcgKuu7BGJIgr3Z7OMfEaLljuZWFZtHcaXtSIId2KbjsSK7hP04f3Rnrd+nxs9yvyonF2jjEEKiWzJ7XxGwWJlOQaQOmepd02jGk3SgH8mq+v4WEWylP+8SyoK8nvHyyQ== sprakash@hortonworks.com"
+  },
+  "network": {
+    "subnetCIDR": "10.0.0.0/16",
+    "parameters": {
+      "noFirewallRules": false,
+      "noPublicIp": false
+    }
+  },
+  "imageSettings": {
+    "imageCatalog": "cloudbreak-default",
+    "imageId": "f88a82a0-81c3-4993-7750-1b08058c5666"
+  },
+  "cluster": {
+    "emailNeeded": false,
+    "rdsConfigNames": [],
+    "ambari": {
+      "blueprintName": "Data Science: Apache Spark 2, Apache Zeppelin",
+      "enableSecurity": false,
+      "userName": "admin",
+      "password": "hadoop@123",
+      "validateRepositories": false,
+      "ambariStackDetails": {
+        "stack": "HDP-2.6",
+        "version": "2.6.5.0",
+        "os": "redhat7",
+        "stackRepoId": "HDP-2.6",
+        "stackBaseURL": "http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.5.0",
+        "utilsRepoId": "HDP-UTILS-1.1.0.22",
+        "utilsBaseURL": "http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.22/repos/centos7",
+        "enableGplRepo": false,
+        "verify": true,
+        "repositoryVersion": "2.6.5.0-292",
+        "versionDefinitionFileUrl": "http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.5.0/HDP-2.6.5.0-292.xml",
+        "mpacks": []
+      },
+      "ambariRepoDetailsJson": {
+        "version": "2.6.2.2",
+        "baseUrl": "http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.6.2.2"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+Cloudbreak CommandLine
+======================
+
+https://docs.hortonworks.com/HDPDocuments/Cloudbreak/Cloudbreak-2.7.1/content/cli-install/index.html
+
+(1) Install cloudbreak on any VM
+(2) Download cloudbreak cli from the cloudbreak UI
+(3) Configure the CLI
+	cb configure --server https://cloud.eng.hortonworks.com --username sprakash@hortonworks.com
+(4) The CLI configuration file will be saved at ~/.cb/config. The content will look similar to the following:
+		~/.cb/config
+	
+	default:
+  username: admin@hortonworks.com
+  server: https://ec2-11-111-111-11.compute-1.amazonaws.com	
+
+cb cluster create --cli-input-json template.json --name test2
